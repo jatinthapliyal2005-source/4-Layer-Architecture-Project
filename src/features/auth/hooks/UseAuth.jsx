@@ -1,13 +1,22 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router"
-import { authApi } from "../api/AuthApi";
+import { useNavigate } from "react-router";
+
 import { useDispatch } from "react-redux";
 import { addUser } from "../state/authSlice";
-import { toast } from "react-toastify";
+import { loginAction } from "../state/authAction";
+
+
+
+
+
+
+
 
 export const UseAuth = ()=>{
-    let navigate =useNavigate()
-    let dispatch=useDispatch()
+   let navigate =useNavigate()
+   let dispatch = useDispatch()
+   
+  
 
     const {
     register,
@@ -16,12 +25,21 @@ export const UseAuth = ()=>{
     formState: { errors },
   } = useForm();
 
-  const handleLogin=async (data)=>{
-    console.log("FORM DATA",data)
-    let res =await authApi(data)
-    dispatch(addUser(res))
-    toast.success("successfully login")
-      
+  const handleLogin= async(data)=>{
+    console.log(data)
+    try{
+    
+
+    dispatch(loginAction(data))
+    
+
+    }catch(error){
+      console.log(error)
+    }
+    
+
+    
+   
   
   }
   const handleRegister=(data)=>{
